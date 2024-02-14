@@ -1,0 +1,10 @@
+{ 
+    "database_config":{
+	"user": "asasas",
+	"dbname": "asasas",
+	"password": "asasas",
+	"host": 31313,
+	"port": 31313,
+	"sslmode": "disable" 
+    }
+}
