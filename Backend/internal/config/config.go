@@ -11,11 +11,11 @@ type Config struct {
 }
 
 type DatabaseConfig struct {
-	User     string `json:"user"`
-	DbName   string `json:"dbname"`
-	Password string `json:"password"`
-	Host     int    `json:"host"`
+	Host     string `json:"host"`
 	Port     int    `json:"port"`
+	User     string `json:"user"`
+	Password string `json:"password"`
+	Dbname   string `json:"dbname"`
 	SSLmode  string `json:"sslmode"`
 }
 

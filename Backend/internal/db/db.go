@@ -6,6 +6,7 @@ import (
 	"log/slog"
 
 	"github.com/jordenskraften/Go-CleanArchitecture-Forum/internal/config"
+	_ "github.com/lib/pq"
 )
 
 type DataBase struct {
@@ -16,12 +17,15 @@ type DataBase struct {
 
 func NewDB(logger *slog.Logger, cfg *config.Config) *DataBase {
 	dbConfig := &cfg.DB
-	connstring := fmt.Sprintf("user=%s dbname=%s password=%s host=%s port=%d sslmode=%s",
-		dbConfig.User, dbConfig.DbName, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.SSLmode)
+	connstring := fmt.Sprintf("host=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		dbConfig.Host, dbConfig.Port, dbConfig.User, dbConfig.Password, dbConfig.Dbname)
 
 	db, err := sql.Open("postgres", connstring)
 	if err != nil {
-		fmt.Println(err)
+		logger.Info("Connecting to database",
+			slog.Any("db error: ", err),
+		)
 	}
 
 	DataBase := &DataBase{
@@ -29,5 +33,14 @@ func NewDB(logger *slog.Logger, cfg *config.Config) *DataBase {
 		Logger: logger,
 		DB:     db,
 	}
+
+	err = DataBase.DB.Ping()
+	if err != nil {
+		panic(err)
+	}
+	logger.Info("DB Status",
+		slog.String("succesfully conected to db=", cfg.DB.Dbname),
+	)
+
 	return DataBase
 }

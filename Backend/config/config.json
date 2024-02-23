@@ -1,10 +1,10 @@
 { 
     "database_config":{
-	"user": "asasas",
-	"dbname": "asasas",
-	"password": "asasas",
-	"host": 31313,
-	"port": 31313,
+	"user": "postgres",
+	"dbname": "tsl_employee",
+	"password": "123",
+	"host": "localhost",
+	"port": 5432,
 	"sslmode": "disable" 
     }
 }
